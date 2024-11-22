@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block main %}
+<div class="container my-4">
+    <h2>Select File for Analysis</h2>
+    <div class="list-group">
+        {% for file in user.files.all %}
+        <form method="get" action="{% url 'analysis:csv-analysis' %}" class="list-group-item">
+            <input type="hidden" name="file_id" value="{{ file.id }}">
+            <button type="submit" class="btn btn-link">{{ file.file.name }}</button>
+        </form>
+        {% endfor %}
+        <a href="{% url 'analysis:index' %}">Add file</a>
+    </div>
+
+    <h2 class="mt-5">Search History</h2>
+    <div class="list-group">
+        {% for h in user.history.all %}
+        <form method="get" action="{% url 'analysis:csv-analysis' %}" class="list-group-item">
+            <input type="hidden" name="file_id" value="{{ h.file.id }}">
+            <input type="hidden" name="column" value="{{ h.column }}">
+            <input type="hidden" name="condition" value="{{ h.condition }}">
+            <input type="hidden" name="value" value="{{ h.value }}">
+            <input type="hidden" name="column_2" value="{{ h.column_2 }}">
+            <input type="hidden" name="search" value="{{ h.search }}">
+            <button type="submit" class="btn btn-link">
+                {{ h.file.file.name }} - {{ h.column }} {{ h.column_2 }}
+            </button>
+        </form>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

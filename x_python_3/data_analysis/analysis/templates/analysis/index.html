@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block main %}
+<form method="POST" enctype="multipart/form-data" class="mb-3">
+    {% csrf_token %}
+    <div class="row mb-3">
+        <div class="col">
+            {{ form.file.label_tag }}
+            {{ form.file }}
+            {% if form.file.errors %}
+                <div class="text-danger">
+                    {{ form.file.errors }}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3 align-self-end">
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+    </div>
+</form>
+{% endblock %}
